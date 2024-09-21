@@ -1206,9 +1206,9 @@ class ButtonCard extends LitElement {
     let mergedStateConfig: StateConfig[] | undefined;
     const tpls = tpl && Array.isArray(tpl) ? tpl : [tpl];
     tpls?.forEach((template) => {
-      if (!ll.config.button_card_templates?.[template])
-        throw new Error(`Button-card template '${template}' is missing!`);
-      const res = this._configFromLLTemplates(ll, ll.config.button_card_templates[template]);
+      if (!ll.config.cblcars_card_templates?.[template])
+        throw new Error(`LCARS Button-card template '${template}' is missing!`);
+      const res = this._configFromLLTemplates(ll, ll.config.cblcars_card_templates[template]);
       result = mergeDeep(result, res);
       mergedStateConfig = mergeStatesById(mergedStateConfig, res.state);
     });
