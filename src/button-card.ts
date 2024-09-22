@@ -104,7 +104,7 @@ console.info(
 //  description: 'A massively customizable custom button card',
 //});
 
-@customElement('button-card')
+@customElement('cblcars-button-card')
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export class ButtonCard extends LitElement {
   @property() private _hass?: HomeAssistant;
