@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { LitElement, html, TemplateResult, CSSResult, PropertyValues } from 'lit';
-import { customElement, property, queryAsync, eventOptions } from 'lit/decorators';
+import { property, queryAsync, eventOptions } from 'lit/decorators';
+//import { customElement, property, queryAsync, eventOptions } from 'lit/decorators';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { Ripple } from '@material/mwc-ripple';
 import { RippleHandlers } from '@material/mwc-ripple/ripple-handlers';
@@ -104,7 +105,7 @@ console.info(
 //  description: 'A massively customizable custom button card',
 //});
 
-@customElement('cblcars-button-card')
+//@customElement('cblcars-button-card')
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export class ButtonCard extends LitElement {
   @property() private _hass?: HomeAssistant;
