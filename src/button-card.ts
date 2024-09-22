@@ -91,18 +91,18 @@ const helperPromise = new Promise<void>(async (resolve) => {
 
 /* eslint no-console: 0 */
 console.info(
-  `%c  BUTTON-CARD  \n%c Version ${pjson.version} `,
+  `%c  CBLCARS-BUTTON-CARD  \n%c Version ${pjson.version} `,
   'color: orange; font-weight: bold; background: black',
   'color: white; font-weight: bold; background: dimgray',
 );
 
-(window as any).customCards = (window as any).customCards || [];
-(window as any).customCards.push({
-  type: 'button-card',
-  name: 'Button-Card',
-  preview: false,
-  description: 'A massively customizable custom button card',
-});
+//(window as any).customCards = (window as any).customCards || [];
+//(window as any).customCards.push({
+//  type: 'cblcars-button-card',
+//  name: 'Button-Card (modified for CB-LCARS)',
+//  preview: false,
+//  description: 'A massively customizable custom button card',
+//});
 
 @customElement('button-card')
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
