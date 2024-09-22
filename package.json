@@ -1,6 +1,6 @@
 {
   "name": "cblcars-button-card",
-  "version": "4.1.2-cblcars.2",
+  "version": "4.1.2-cblcars.3",
   "description": "Modified Button card for CB-LCARS",
   "main": "dist/button-card.js",
   "scripts": {
