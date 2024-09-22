@@ -1,7 +1,7 @@
 {
   "name": "button-card",
-  "version": "4.1.2",
-  "description": "Button card for lovelace",
+  "version": "4.1.2-cblcars.1",
+  "description": "Modified Button card for CB-LCARS",
   "main": "dist/button-card.js",
   "scripts": {
     "build": "npm run lint && npm run rollup",
