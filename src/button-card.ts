@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { LitElement, html, TemplateResult, CSSResult, PropertyValues } from 'lit';
-import { property, queryAsync, eventOptions } from 'lit/decorators';
-//import { customElement, property, queryAsync, eventOptions } from 'lit/decorators';
+//import { property, queryAsync, eventOptions } from 'lit/decorators';
+import { customElement, property, queryAsync, eventOptions } from 'lit/decorators';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { Ripple } from '@material/mwc-ripple';
 import { RippleHandlers } from '@material/mwc-ripple/ripple-handlers';
@@ -92,20 +92,22 @@ const helperPromise = new Promise<void>(async (resolve) => {
 
 /* eslint no-console: 0 */
 console.info(
-  `%c  CBLCARS-BUTTON-CARD  \n%c Version ${pjson.version} `,
-  'color: orange; font-weight: bold; background: black',
-  'color: white; font-weight: bold; background: dimgray',
+  `%c  BUTTON-CARD (mod for CB-LCARS)  \n%c Version ${pjson.version} `,
+  'color: white; font-weight: bold; background: #37a6d1',
+  'color: white; font-weight: bold; background: #37a6d1',
 );
 
-//(window as any).customCards = (window as any).customCards || [];
-//(window as any).customCards.push({
-//  type: 'cblcars-button-card',
-//  name: 'Button-Card (modified for CB-LCARS)',
-//  preview: false,
-//  description: 'A massively customizable custom button card',
-//});
+/*
+(window as any).customCards = (window as any).customCards || [];
+(window as any).customCards.push({
+  type: 'cblcars-button-card',
+  name: 'Button-Card (mod for CB-LCARS)',
+  preview: false,
+  description: 'A massively customizable custom button card',
+});
+*/
 
-//@customElement('cblcars-button-card')
+@customElement('cblcars-button-card')
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export class ButtonCard extends LitElement {
   @property() private _hass?: HomeAssistant;
@@ -1200,6 +1202,7 @@ export class ButtonCard extends LitElement {
     }
   }
 
+  /*
   private _configFromLLTemplates(ll: any, config: any): ExternalButtonCardConfig {
     const tpl = config.template;
     if (!tpl) return config;
@@ -1210,6 +1213,35 @@ export class ButtonCard extends LitElement {
       if (!ll.config.cblcars_card_templates?.[template])
         throw new Error(`LCARS Button-card template '${template}' is missing!`);
       const res = this._configFromLLTemplates(ll, ll.config.cblcars_card_templates[template]);
+      result = mergeDeep(result, res);
+      mergedStateConfig = mergeStatesById(mergedStateConfig, res.state);
+    });
+    result = mergeDeep(result, config);
+    result.state = mergeStatesById(mergedStateConfig, config.state);
+    return result as ExternalButtonCardConfig;
+  }
+  */
+
+  ///////
+  // Modified _configFromLLTemplates to use the global variable window.cblcars_card_templates for templates
+  // If template is also defined in the ll.config.cblcars_card_templates, it will take precedence
+  ///////
+  private _configFromLLTemplates(ll: any, config: any): ExternalButtonCardConfig {
+    const tpl = config.template;
+    if (!tpl) return config;
+    let result: any = {};
+    let mergedStateConfig: StateConfig[] | undefined;
+    const tpls = tpl && Array.isArray(tpl) ? tpl : [tpl];
+    tpls?.forEach((template) => {
+      let templateConfig;
+      if (ll.config.cblcars_card_templates?.[template]) {
+        templateConfig = ll.config.cblcars_card_templates[template];
+      } else if ((window as any).cblcars_card_templates?.[template]) {
+        templateConfig = (window as any).cblcars_card_templates[template];
+      } else {
+        throw new Error(`LCARS Button-card template '${template}' is missing!`);
+      }
+      const res = this._configFromLLTemplates(ll, templateConfig);
       result = mergeDeep(result, res);
       mergedStateConfig = mergeStatesById(mergedStateConfig, res.state);
     });
@@ -1232,7 +1264,7 @@ export class ButtonCard extends LitElement {
     let template: ExternalButtonCardConfig = copy(config);
     template = this._configFromLLTemplates(ll, template);
     this._config = {
-      type: 'custom:button-card',
+      type: 'custom:cblcars-button-card',
       group_expand: false,
       hold_action: { action: 'none' },
       double_tap_action: { action: 'none' },
